@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valida</title>
+</head>
+
+<body>
+    CPF<input type="text" id="cpfcnpj" maxlength="14" autocomplete="off">
+    CNPJ<input type="text" id="cnpj" maxlength="18" autocomplete="off">
+    <div id="tela"></div>
+
+    <script>
+        var cpf = document.getElementById("cpfcnpj");
+        cpf.addEventListener('input', async () => {
+            let valida = cpf.value.length
+            if (valida === 3 || valida === 7) {
+                cpf.value += '.'
+            } else if (valida === 11) {
+                cpf.value += '-'
+            }
+        })
+        var cnpj = document.getElementById("cnpj");
+        cnpj.addEventListener('keypress', () => {
+            let valida = cnpj.value.length
+            if (valida === 2 || valida === 6) {
+                cnpj.value += '.'
+            } else if (valida === 10) {
+                cnpj.value += '/'
+            } else if (valida === 15) {
+                cnpj.value += '-'
+            }
+        })
+
+        const valida1cpf = () => {
+            let cnpjteste = document.getElementById("cpfcnpj")
+            cnpjteste.addEventListener('input', function () {
+                var teste = cnpjteste.value
+                const cpf = /^(\d{3})(\d{3})(\d{3})(\d{2})$/
+                let dados = teste.replace(cpf, '$1.$2.$3-$4').length;
+                if (dados == 14) {
+                    validar2cpf(teste)
+                } else {
+                    return false
+                }
+            })
+        }
+        valida1cpf()
+
+        const validar2cpf = (getcpf) => {
+            let soma = 0
+            console.log(getcpf)
+            cpf = getcpf.replace(/[^\d]+/g, '');
+            console.log(typeof(cpf))
+            if (
+                cpf.length != 11 ||
+                cpf == "00000000000" ||
+                cpf == "11111111111" ||
+                cpf == "22222222222" ||
+                cpf == "33333333333" ||
+                cpf == "44444444444" ||
+                cpf == "55555555555" ||
+                cpf == "66666666666" ||
+                cpf == "77777777777" ||
+                cpf == "88888888888" ||
+                cpf == "99999999999" ||
+                cpf == "01234567890") {
+                document.getElementById("tela").innerHTML = "CPF inválido"
+            } else {
+                // document.getElementById("tela").innerHTML = "É valido por enquanto esse: " + getcpf
+                soma += cpf[0] * 10
+                soma += cpf[1] * 9
+                soma += cpf[2] * 8
+                soma += cpf[3] * 7
+                soma += cpf[4] * 6
+                soma += cpf[5] * 5
+                soma += cpf[6] * 4
+                soma += cpf[7] * 3
+                soma += cpf[8] * 2
+                soma = (soma * 10) % 11;
+            
+                if(soma == 10 || soma == 11){
+                    soma = 0
+                }
+                if(soma != cpf[9]){
+                    console.log(false)
+                }
+                console.log(`Primeiro Digito é ${soma}`)
+
+                soma = 0
+                soma += cpf[0] * 11
+                soma += cpf[1] * 10
+                soma += cpf[2] * 9
+                soma += cpf[3] * 8
+                soma += cpf[4] * 7
+                soma += cpf[5] * 6
+                soma += cpf[6] * 5
+                soma += cpf[7] * 4
+                soma += cpf[8] * 3
+                soma += cpf[9] * 2
+                soma = (soma * 10) % 11;
+                if(soma == 10 || soma == 11){
+                    soma = 0
+                }
+                if(soma != cpf[10]){
+                    console.log(false)
+                }
+                console.log(`Segundo Digito é ${soma}`)
+                document.getElementById("tela").innerHTML = "É valido por enquanto esse: " + getcpf
+            }
+
+        }
+        const validacnpj = () => {
+            let cnpjteste = document.getElementById("cnpj")
+            cnpjteste.addEventListener('input', function () {
+                var teste = cnpjteste.value
+                const cnpj = /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/
+                let dados = teste.replace(cnpj, '$1.$2.$3/$3-$5');
+                document.getElementById("tela").innerHTML = dados
+            })
+        }
+        validacnpj()
+
+
+
+    </script>
+</body>
+
+</html>
