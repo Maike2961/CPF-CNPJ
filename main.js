@@ -1,10 +1,10 @@
   //formatação do cpf no input
   var cpf = document.getElementById("cpfcnpj");
   cpf.addEventListener('input',() => {
-      let valida = cpf.value
-      if (valida.length == 3 || valida.length == 7) {
+      let valida = cpf.value.length
+      if (valida === 3 || valida === 7) {
           cpf.value += '.'
-      } else if (valida.length == 11) {
+      } else if (valida ===  11) {
           cpf.value += '-'
       } else {
           return false
@@ -33,8 +33,6 @@
           let dados = teste.replace(cpf, '$1.$2.$3-$4').length;
           if (dados == 14) {
               validar2cpf(teste)
-          } else {
-              return false
           }
       })
   }
@@ -42,9 +40,8 @@
 
   //calculo do CPF
   const validar2cpf = (getcpf) => {
-      let soma = 0
       console.log(getcpf)
-      cpf = getcpf.replace(/[^\d]+/g, '');
+      let cpf = getcpf.replace(/[^\d]+/g, '');
       console.log(typeof (cpf))
       if (
           cpf.length != 11 ||
@@ -63,6 +60,7 @@
           return false
       } else {
           //primeiro digito
+          soma = 0
           soma += cpf[0] * 10
           soma += cpf[1] * 9
           soma += cpf[2] * 8
