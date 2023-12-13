@@ -8,22 +8,26 @@
 </head>
 
 <body>
-    CPF<input type="text" id="cpfcnpj" maxlength="14" autocomplete="off">
-    CNPJ<input type="text" id="cnpj" maxlength="18" autocomplete="off">
+    CPF : <input type="text" id="cpfcnpj" maxlength="14" autocomplete="off">
+    CNPJ : <input type="text" id="cnpj" maxlength="18" autocomplete="off">
     <div id="tela"></div>
 
     <script>
+        //formatação do cpf no input
         var cpf = document.getElementById("cpfcnpj");
         cpf.addEventListener('input', async () => {
-            let valida = cpf.value.length
-            if (valida === 3 || valida === 7) {
+            let valida = cpf.value
+            if (valida.length == 3 || valida.length == 7) {
                 cpf.value += '.'
-            } else if (valida === 11) {
+            } else if (valida.length == 11) {
                 cpf.value += '-'
+            }else{
+                return false
             }
         })
+        //formatação do cnpj no input
         var cnpj = document.getElementById("cnpj");
-        cnpj.addEventListener('keypress', () => {
+        cnpj.addEventListener('input', () => {
             let valida = cnpj.value.length
             if (valida === 2 || valida === 6) {
                 cnpj.value += '.'
@@ -31,6 +35,8 @@
                 cnpj.value += '/'
             } else if (valida === 15) {
                 cnpj.value += '-'
+            }else{
+                return false
             }
         })
 
@@ -49,6 +55,7 @@
         }
         valida1cpf()
 
+        //calculo do CPF
         const validar2cpf = (getcpf) => {
             let soma = 0
             console.log(getcpf)
@@ -80,14 +87,14 @@
                 soma += cpf[7] * 3
                 soma += cpf[8] * 2
                 soma = (soma * 10) % 11;
-            
-                if(soma == 10 || soma == 11){
+
+                if (soma == 10 || soma == 11) {
                     soma = 0
                 }
-                if(soma != cpf[9]){
+                if (soma != cpf[9]) {
                     console.log(false)
+                    document.getElementById("tela").innerHTML = "CPF inválido"
                 }
-                console.log(`Primeiro Digito é ${soma}`)
 
                 soma = 0
                 soma += cpf[0] * 11
@@ -101,14 +108,17 @@
                 soma += cpf[8] * 3
                 soma += cpf[9] * 2
                 soma = (soma * 10) % 11;
-                if(soma == 10 || soma == 11){
+                if (soma == 10 || soma == 11) {
                     soma = 0
                 }
-                if(soma != cpf[10]){
+                if (soma != cpf[10]) {
                     console.log(false)
+                    document.getElementById("tela").innerHTML = "CPF inválido"
+                } else {
+                    console.log(`Primeiro Digito é ${soma}`)
+                    console.log(`Segundo Digito é ${soma}`)
+                    document.getElementById("tela").innerHTML = "É valido esse: " + getcpf
                 }
-                console.log(`Segundo Digito é ${soma}`)
-                document.getElementById("tela").innerHTML = "É valido por enquanto esse: " + getcpf
             }
 
         }
@@ -117,11 +127,17 @@
             cnpjteste.addEventListener('input', function () {
                 var teste = cnpjteste.value
                 const cnpj = /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/
-                let dados = teste.replace(cnpj, '$1.$2.$3/$3-$5');
-                document.getElementById("tela").innerHTML = dados
+                let dados = teste.replace(cnpj, '$1.$2.$3/$3-$5').length;
+                if(dados == 18){
+                    valida2cnpj(teste)
+                }
             })
         }
         validacnpj()
+
+        const valida2cnpj = (getcnpj) => {
+            console.log(getcnpj)
+        }
 
 
 
