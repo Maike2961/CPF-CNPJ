@@ -1,1 +1,1 @@
-Valide seu CPF ou CNPJ
+VALIDE SEU CPF OU SEU CNPJ
