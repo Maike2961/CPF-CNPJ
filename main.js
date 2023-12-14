@@ -1,3 +1,25 @@
+const view = () =>{
+    let cnpj = document.getElementById("cnpj")
+    let botao_cnpj2 = document.getElementById("cnpj2")
+    let cpf = document.getElementById("cpfcnpj");
+    let botao_cpf2 = document.getElementById("cpf2")
+    document.getElementById("cpf2").onclick = () =>{
+        cpf.hidden = false
+        botao_cpf2.hidden = true
+        cpf.style.marginTop = "15px"
+        cnpj.hidden = true
+        botao_cnpj2.hidden = false
+    }
+    document.getElementById("cnpj2").onclick = () =>{
+        cpf.hidden = true
+        botao_cpf2.hidden = false
+        cnpj.style.marginTop = "15px"
+        cnpj.hidden = false
+        botao_cnpj2.hidden = true    
+    }
+}
+view()
+  
   //formatação do cpf no input
   var cpf = document.getElementById("cpfcnpj");
   cpf.addEventListener('input',() => {

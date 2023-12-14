@@ -11,10 +11,18 @@
 <body>
     <div class="fund">
         <h2>Validador de CPF e CNPJ:</h2>
-        CPF  <input type="text" class="input" id="cpfcnpj" maxlength="14" autocomplete="off">
-        CNPJ  <input type="text" class="input" id="cnpj" maxlength="18" autocomplete="off">
+        <div>
+            <input type="submit" class="button" autocomplete="off" value="CPF" id="cpf2">
+            <input type="button" class="button" autocomplete="off" value="CNPJ" id="cnpj2">
+        </div>
+
+        <input hidden type="text" class="input" placeholder="CPF" id="cpfcnpj" maxlength="14" autocomplete="off">
+        <input hidden type="text" class="input" id="cnpj" placeholder="CNPJ" maxlength="18" autocomplete="off" hidden>
+
         <div id="tela"></div>
+
     </div>
 </body>
 <script src="main.js"></script>
+
 </html>
